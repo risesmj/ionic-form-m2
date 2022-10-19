@@ -1,20 +1,197 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Form - Avaliation M2 | Student: Matheus José da Cunha / Professor: Carlos Henrique Bughi
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <form [formGroup]="formInfoPersonal" (submit)="sendForm()">
+
+
+    <ion-item-group>
+
+      <ion-item-divider>
+        <ion-label>
+          Informações Pessoais
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-grid>
+
+        <ion-row>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Nome</ion-label>
+              <ion-input formControlName="name"></ion-input>
+              <ion-note *ngIf="formInfoPersonal.controls.name.touched" slot="error">
+                <span *ngIf="formInfoPersonal.controls.name.errors?.['required']">
+                  <ion-icon name="alert-outline"></ion-icon> Nome é obrigatório
+                </span>
+                <span *ngIf="formInfoPersonal.controls.name.errors?.['minlength']">
+                  <ion-icon name="alert-outline"></ion-icon> No mínimo 3 caracteres
+                </span>
+
+              </ion-note>
+            </ion-item>
+
+          </ion-col>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Sobrenome</ion-label>
+              <ion-input formControlName="lastName"></ion-input>
+            </ion-item>
+
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">CPF</ion-label>
+              <ion-input formControlName="identity"></ion-input>
+
+              <ion-note *ngIf="formInfoPersonal.controls.identity.touched" slot="error">
+                <span *ngIf="formInfoPersonal.controls.identity.errors?.['required']">
+                  <ion-icon name="alert-outline"></ion-icon> CPF é obrigatório
+                </span>
+                <span *ngIf="formInfoPersonal.controls.identity.errors?.['cpfValidator']">
+                  <ion-icon name="alert-outline"></ion-icon> CPF inválido
+                </span>
+
+              </ion-note>
+            </ion-item>
+
+          </ion-col>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Gênero</ion-label>
+              <ion-select formControlName="gender">
+                <ion-select-option *ngFor="let gender of genders">{{gender}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col [hidden]="formInfoPersonal.controls.gender.value != 'Outro'">
+
+            <ion-item>
+              <ion-label position="floating">Outro Gênero</ion-label>
+              <ion-input formControlName="otherGender"></ion-input>
+            </ion-item>
+
+            <ion-note *ngIf="formInfoPersonal.controls.otherGender.touched" slot="error">
+              <span *ngIf="formInfoPersonal.controls.otherGender.errors?.['required']">
+                <ion-icon name="alert-outline"></ion-icon> Nome é obrigatório
+              </span>
+            </ion-note>
+
+          </ion-col>
+        </ion-row>
+
+
+      </ion-grid>
+
+    </ion-item-group>
+
+    <ion-item-group>
+
+      <ion-grid>
+
+        <ion-item-divider>
+          <ion-label>
+            Dados do Endereço
+          </ion-label>
+        </ion-item-divider>
+
+        <ion-row>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">CEP</ion-label>
+              <ion-input formControlName="zipCode"></ion-input>
+            </ion-item>
+
+          </ion-col>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Endereço</ion-label>
+              <ion-input formControlName="address"></ion-input>
+            </ion-item>
+
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Bairro</ion-label>
+              <ion-input formControlName="district"></ion-input>
+            </ion-item>
+
+          </ion-col>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Complemento</ion-label>
+              <ion-input formControlName="complement"></ion-input>
+            </ion-item>
+
+          </ion-col>
+
+        </ion-row>
+
+
+        <ion-row>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Cidade</ion-label>
+              <ion-input formControlName="city"></ion-input>
+            </ion-item>
+
+          </ion-col>
+
+          <ion-col>
+
+            <ion-item>
+              <ion-label position="floating">Estado</ion-label>
+              <ion-input formControlName="state"></ion-input>
+            </ion-item>
+
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+    </ion-item-group>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit">Enviar</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </form>
 </ion-content>
